@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "transport.ui.Main",
+      "projectName": "TP_Poo_ea645b6e",
+      "vmArgs": "--module-path \"./lib/javafx-sdk-17.0.15/lib/\" --add-modules javafx.controls,javafx.fxml"
+    },
+  ]
+}
