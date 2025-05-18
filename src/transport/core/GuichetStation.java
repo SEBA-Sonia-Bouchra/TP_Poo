@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GichetStation {
+public class GuichetStation {
     List<Personne> listPersonnes = new ArrayList<>();
 
     public void ajouterUsager (String nom, String prenom, LocalDate dateNaissance, boolean handicap){
