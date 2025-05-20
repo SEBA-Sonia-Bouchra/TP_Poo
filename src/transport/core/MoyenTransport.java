@@ -1,15 +1,18 @@
 package transport.core;
 
-public class MoyenTransport implements Suspendable{
+import java.io.Serializable;
+
+public class MoyenTransport implements Suspendable, Serializable{
+    private static final long serialVersionUID = 1L;
     private String identifiant;
     private boolean suspendu;
 
-    public MoyenTransport(String identifiant) {
+    public MoyenTransport(String identifiant){
         this.identifiant = identifiant;
     }
 
     public String getIdentifiant() { return identifiant; }    
-    public String toString() { return identifiant ;}
+    public String toString() { return ("Moyen de transport" + identifiant) ;}
   
     public void suspendre() {suspendu=true;}
     public void reactiver() {suspendu=false;}

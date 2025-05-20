@@ -1,7 +1,9 @@
 package transport.core;
+import java.io.Serializable;
 import java.time.*;
 
-public class Ticket extends TitreTransport{
+public class Ticket extends TitreTransport implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     public Ticket(){
         super();

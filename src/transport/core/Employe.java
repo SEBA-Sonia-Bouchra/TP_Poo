@@ -1,9 +1,10 @@
 package transport.core;
 
+import java.io.Serializable;
 import java.time.*;
 // Classe Employé
 
-public class Employe extends Personne {
+public class Employe extends Personne implements Serializable{
     private final String matricule;
     private final Fonction fonction;
 

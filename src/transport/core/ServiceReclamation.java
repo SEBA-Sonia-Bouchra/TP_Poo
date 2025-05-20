@@ -1,12 +1,14 @@
 package transport.core;
 
 import java.util.*;
+import java.io.*;
 
-public class ServiceReclamation {
+public class ServiceReclamation implements Serializable{
+    private static final long serialVersionUID = 1L;
     private  final int SEUIL = 3;
     private  Map<TypeReclamation,TreeSet<Reclamation>> reclamationsParType = new TreeMap<>();
     private  Map<Personne, TreeSet<Reclamation>> reclamationsParPersonne = new HashMap<>();
-    // private  Map<Suspendable, TreeSet<Reclamation>> reclamationsParSuspendable = new HashMap<>();
+    private  Map<Suspendable, TreeSet<Reclamation>> reclamationsParSuspendable = new HashMap<>();
     private TreeSet<Reclamation> TreeReclamation = new TreeSet<>();
 
     public void soumettre(Reclamation R){
@@ -22,6 +24,8 @@ public class ServiceReclamation {
         }   
         if (cibleNB >= SEUIL){
             R.getCible().suspendre();
+            reclamationsParSuspendable.put(R.getCible(), TreeReclamation);
+            System.out.println("Ce service est suspendu");
         }
     }
 
@@ -59,5 +63,27 @@ public class ServiceReclamation {
 
     //     }
     // }
-    
+
+    // ************************************************************
+
+    // added this method to display all recalmations of all types
+    public void afficherTousReclamations() {
+        for (Reclamation reclamation : TreeReclamation) {
+            System.out.println(reclamation.toString());
+        }
+    }
+
+    // Save to file
+    public void sauvegarder(String Fichier) throws IOException {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(Fichier))) {
+            out.writeObject(this);
+        }
+    }
+
+    // Load from file
+    public static ServiceReclamation charger(String Fichier) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(Fichier))) {
+            return (ServiceReclamation) in.readObject();
+        }
+    }   
 }

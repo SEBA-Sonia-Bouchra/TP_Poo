@@ -1,8 +1,10 @@
 package transport.core;
 
+import java.io.Serializable;
 import java.time.*;
 
-public class CartePersonnelle extends TitreTransport {
+public class CartePersonnelle extends TitreTransport implements Serializable{
+    private static final long serialVersionUID = 1L;
     private Personne personne;
     private TypeCarte type;
 

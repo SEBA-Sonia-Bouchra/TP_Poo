@@ -1,10 +1,12 @@
 package transport.core;
+import java.io.Serializable;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
 // Classe abstraite Personne
-public abstract class Personne {
+public abstract class Personne  implements Serializable{
+    private static final long serialVersionUID = 1L;
     protected  String nom;
     protected  String prenom;
     protected  LocalDate dateNaissance;

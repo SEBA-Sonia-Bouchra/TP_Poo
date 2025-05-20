@@ -1,6 +1,9 @@
 package transport.core;
 
-public class Station implements Suspendable{
+import java.io.Serializable;
+
+public class Station implements Suspendable, Serializable{
+    private static final long serialVersionUID = 1L;
     private String nom;
     private boolean suspendu;
     public Station(String nom) {
