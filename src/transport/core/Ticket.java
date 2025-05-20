@@ -11,7 +11,7 @@ public class Ticket extends TitreTransport implements Serializable{
     }
 
     public boolean estValide(LocalDate date) throws TitreNonValideException{
-        boolean valide=date.isEqual(super.dateAchat.toLocalDate());
+        boolean valide=date.isEqual(super.dateAchat);
         if(valide==false){
             throw new TitreNonValideException();
         }

@@ -1,6 +1,5 @@
 package transport.core;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,26 +10,14 @@ public class GuichetStation implements Serializable{
     List<Personne> listPersonnes = new ArrayList<>(); 
     ServiceReclamation service = new ServiceReclamation();
 
-     public GuichetStation() {
-        // try {
-        //     service = ServiceReclamation.charger(saveFile);
-        // } catch (IOException | ClassNotFoundException e) {
-        //     System.out.println("could not load reclamation file");
-        //     service = new ServiceReclamation();
-        // }
-    }
-
-    public void ajouterUsager (String nom, String prenom, LocalDate dateNaissance, boolean handicap){
-        Usager usager = new Usager(nom, prenom, dateNaissance, handicap);
+    public void ajouterUsager (Usager usager){
         listPersonnes.add(usager);
     }
-    public void ajouterEmploye (String nom, String prenom, LocalDate dateNaissance, boolean handicap, String matricule, Fonction fonction){
-        Employe employe = new Employe(nom, prenom, dateNaissance, handicap, matricule, fonction);
+    public void ajouterEmploye (Employe employe){
         listPersonnes.add(employe);
     }
     public void acheterTitreTransport(Personne personne, TitreTransport titre){
         personne.ajouterTitre(titre);
-        listPersonnes.add(personne);
         System.out.println("Titre ajouter avec succes\n"+ personne.toString() + "\nPrix: " + titre.prix + "\nValable le: " + titre.dateAchat);
     }
     public List<TitreTransport> afficherTitreTransport() {

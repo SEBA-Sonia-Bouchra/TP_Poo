@@ -14,10 +14,26 @@ public class HomeController {
     @FXML
     private Button AjouterTitreTransportButton;
     @FXML
+    private Button AfficherTitresTransportButton;
+    @FXML
     private void AjouterTitreTransport(ActionEvent event) throws IOException {
          try {
             // Load the destination scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/transport/ui/AjouterTitreTransport.fxml"));
+            Parent destinationRoot = loader.load();
+            
+            // Get the current stage from the button
+            Stage stage = (Stage) AjouterTitreTransportButton.getScene().getWindow();
+            stage.setScene(new Scene(destinationRoot));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void AfficherTitresTransport(ActionEvent event) throws IOException {
+         try {
+            // Load the destination scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/transport/ui/AfficherTitreTransport.fxml"));
             Parent destinationRoot = loader.load();
             
             // Get the current stage from the button

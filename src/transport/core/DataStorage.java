@@ -3,7 +3,7 @@ import java.io.*;
 
 // a utility class used for data storage
 public class DataStorage {
-    public static void saveState(GuichetStation guichet, String filename) {
+    public static void saveState( GuichetStation guichet, String filename) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeInt(TitreTransport.getCurrentIdInc()); // save static counter
             out.writeObject(guichet); // save guichet context

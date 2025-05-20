@@ -22,26 +22,22 @@ public class TestTransport {
        String saveFile = "State.ser";
        GuichetStation guichet = DataStorage.loadState(saveFile);
        
-        // 1. Ajouter Usager et Employe
-      //   guichet.ajouterUsager("Doe", "John", LocalDate.of(2000, 1, 15), false);
-      //   guichet.ajouterEmploye("Smith", "Alice", LocalDate.of(1975, 6, 20), true, "EMP123", Fonction.AGENT);
-
         // 2. Créer un usager et un titre de transport
-     //    Personne usager = new Usager("Lee", "Sonia", LocalDate.of(2006, 3, 1), true);
-     //    TitreTransport ticket = new Ticket();
+        Personne usager = new Usager("Lee", "Sonia", LocalDate.of(2006, 3, 1), true);
+        TitreTransport ticket = new Ticket();
 
-     //    guichet.acheterTitreTransport(usager, ticket);
+        guichet.acheterTitreTransport(usager, ticket);
 
-     //    try {
-          //   TitreTransport carte = new CartePersonnelle(usager);
-          //   guichet.acheterTitreTransport(usager, carte);
-     //    } catch (ReductionImpossibleException e) {
-          //   System.out.println("Erreur lors de la création de la carte personnelle : " + e.getMessage());
-     //    }
+        try {
+            TitreTransport carte = new CartePersonnelle(usager);
+            guichet.acheterTitreTransport(usager, carte);
+        } catch (ReductionImpossibleException e) {
+            System.out.println("Erreur lors de la création de la carte personnelle : " + e.getMessage());
+        }
 
         // 3. Valider un titre
      //    guichet.verifierTitre(ticket.getId());
-        System.out.println(guichet.afficherTitreTransport().toString());;
+        System.out.println(guichet.afficherTitreTransport().toString());
 
         // 4. Ajouter des réclamations
       //   Suspendable station = new Station("El Harrach"); 
@@ -54,9 +50,9 @@ public class TestTransport {
       //   guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Comportement inacceptable.");
 
         // 5. Afficher les réclamations
-        guichet.afficherReclamations();
+        // guichet.afficherReclamations();
 
-        guichet.afficherPersonnes();
+        // guichet.afficherPersonnes();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             DataStorage.saveState(guichet, saveFile);
