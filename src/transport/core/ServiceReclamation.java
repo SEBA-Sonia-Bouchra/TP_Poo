@@ -6,7 +6,7 @@ public class ServiceReclamation {
     private  final int SEUIL = 3;
     private  Map<TypeReclamation,TreeSet<Reclamation>> reclamationsParType = new TreeMap<>();
     private  Map<Personne, TreeSet<Reclamation>> reclamationsParPersonne = new HashMap<>();
-    private  Map<Suspendable, TreeSet<Reclamation>> reclamationsParSuspendable = new HashMap<>();
+    // private  Map<Suspendable, TreeSet<Reclamation>> reclamationsParSuspendable = new HashMap<>();
     private TreeSet<Reclamation> TreeReclamation = new TreeSet<>();
 
     public void soumettre(Reclamation R){

@@ -17,7 +17,7 @@ public class CartePersonnelle extends TitreTransport {
     public CartePersonnelle (Personne personne) throws ReductionImpossibleException{
         super();
         this.personne = personne;
-        super.prix=11500;
+        super.prix=5000;
         setType();
         if(type==TypeCarte.NOREDUCTION){
             throw new ReductionImpossibleException();

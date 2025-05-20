@@ -15,12 +15,9 @@ public abstract class TitreTransport {
         idInc++;
     }
 
-
     public LocalDateTime getDateAchat(){ return dateAchat;}
-
     public int getId(){ return id;}
     public double getPrix(){ return prix;}
-
     public abstract boolean estValide(LocalDate date) throws TitreNonValideException;
     
     

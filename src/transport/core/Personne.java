@@ -1,5 +1,7 @@
 package transport.core;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // Classe abstraite Personne
 public abstract class Personne {
@@ -7,6 +9,7 @@ public abstract class Personne {
     protected  String prenom;
     protected  LocalDate dateNaissance;
     protected boolean handicap;
+    protected List<TitreTransport> listTitreTransport = new ArrayList<>();
 
     public Personne(String nom, String prenom, LocalDate dateNaissance, boolean handicap){
         this.nom= nom;
@@ -36,6 +39,12 @@ public abstract class Personne {
         return prenom + " " + nom;
     }
   
+    public void ajouterTitre(TitreTransport titre){
+        listTitreTransport.add(titre);
+    }
 
+     public List<TitreTransport> getTitreTransport() {
+        return listTitreTransport;
+    }
 }
 
