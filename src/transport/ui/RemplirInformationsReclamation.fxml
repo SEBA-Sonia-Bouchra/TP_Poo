@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="transport.control.RemplirInformationsReclamationController">
+   <children>
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="193.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="407.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox prefHeight="400.0" prefWidth="220.0" style="-fx-background-color: orange;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <children>
+                  <Button fx:id="backButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleGoBack" style="-fx-background-color: transparent;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label text="ESI-RUN" textFill="WHITE">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="36.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="30.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" GridPane.columnIndex="1">
+               <children>
+                  <Label prefHeight="88.0" prefWidth="395.0" text="Remplir les informations sur la réclamation" textAlignment="CENTER">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <Label text="La date de réclamation">
+                                 <font>
+                                    <Font name="Yu Gothic UI Regular" size="13.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dateField" promptText="Entrez la date de la réclamation" />
+                           </children>
+                        </HBox>
+                        <Label fx:id="dateErrorLabel" text="Label" textFill="RED" visible="false" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Choisir le type de réclamation">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="choiceBox" prefWidth="150.0" />
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Label text="Remplir une petite description sur la réclamation">
+                           <font>
+                              <Font name="Yu Gothic UI Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextArea maxHeight="150.0" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="validerReclamationButton" mnemonicParsing="false" style="-fx-background-color: orange; -fx-background-radius: 10px; -fx-text-fill: white; -fx-background-size: 40px; -fx-font-size: 17px;" text="Valider">
+                           <font>
+                              <Font name="Yu Gothic UI Regular" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+   </children>
+</HBox>
