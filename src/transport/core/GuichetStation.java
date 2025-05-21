@@ -9,12 +9,27 @@ import java.util.TreeSet;
 
 public class GuichetStation implements Serializable{
     private static final long serialVersionUID = 1L;
+    private static GuichetStation instance;
     List<Personne> listPersonnes = new ArrayList<>(); 
     ServiceReclamation service = new ServiceReclamation();
 
     public void ajouterPersonne (Personne personne){
         listPersonnes.add(personne);
     }
+
+    public static GuichetStation getInstance() {
+        if (instance == null) {
+            instance = DataStorage.loadState("State.ser"); // Load from file or create new
+        }
+        return instance;
+    }
+
+    public static void saveInstance() {
+        if (instance != null) {
+            DataStorage.saveState(instance, "State.ser");
+        }
+    }
+
     public void acheterTitreTransport(Personne personne, TitreTransport titre){
         personne.ajouterTitre(titre);
         System.out.println("Titre ajouter avec succes\n"+ personne.toString() + "\nPrix: " + titre.prix + "\nValable le: " + titre.dateAchat);

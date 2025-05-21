@@ -17,6 +17,10 @@ public class HomeController {
     @FXML
     private Button AfficherReclamationButton;
     @FXML
+    private Button ValiderTitreTransportButton;
+    @FXML
+    private Button AjouterReclamationButton;
+    @FXML
     private void AjouterTitreTransport(ActionEvent event) throws IOException {
          try {
             // Load the destination scene
@@ -54,6 +58,35 @@ public class HomeController {
             // Get the current stage from the button
             Stage stage = (Stage) AjouterTitreTransportButton.getScene().getWindow();
             stage.setScene(new Scene(destinationRoot));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void ValiderTitreTransport(ActionEvent event) throws IOException {
+         try {
+            // Load the destination scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/transport/ui/ValiderTitreTransport.fxml"));
+            Parent destinationRoot = loader.load();
+            
+            // Get the current stage from the button
+            Stage stage = (Stage) ValiderTitreTransportButton.getScene().getWindow();
+            stage.setScene(new Scene(destinationRoot, 800, 500));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void AjouterReclamation(ActionEvent event) throws IOException {
+         try {
+            // Load the destination scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/transport/ui/AjouterReclamation.fxml"));
+            Parent destinationRoot = loader.load();
+            
+            // Get the current stage from the button
+            Stage stage = (Stage) AjouterReclamationButton.getScene().getWindow();
+            stage.setScene(new Scene(destinationRoot, 800, 500));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -61,7 +61,10 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.setResizable(true); // Allow resizing
         primaryStage.show();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {}));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> { // saves the guichet state when the app is closed
+          DataStorage.saveState(GuichetStation.getInstance(), saveFile);
+        }));
+
     }
 
     public static void main(String[] args) {

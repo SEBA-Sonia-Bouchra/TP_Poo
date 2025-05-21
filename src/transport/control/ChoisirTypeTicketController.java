@@ -27,7 +27,9 @@ public class ChoisirTypeTicketController {
     String saveFile = "State.ser";
     GuichetStation guichet = DataStorage.loadState(saveFile);
     @FXML 
-    private ChoiceBox<String> choiceBox3;
+    private ChoiceBox<String> choiceBox1;
+    @FXML 
+    private ChoiceBox<String> choiceBox2;
     @FXML
     private Button backButton;
     @FXML
@@ -38,8 +40,10 @@ public class ChoisirTypeTicketController {
     }
     public void initialize() {
         setPersonne(personne);
-        choiceBox3.getItems().addAll("Ticket", "Carte de navigation personnelle");
-        choiceBox3.setValue("Ticket");
+        choiceBox1.getItems().addAll("Ticket", "Carte de navigation personnelle");
+        choiceBox1.setValue("Ticket");
+        choiceBox2.getItems().addAll("Espece", "Carte DAHABIA", "BaridiMob");
+        choiceBox2.setValue("Espece");
         Image img = new Image(getClass().getResourceAsStream("/transport/ui/back-arrow-3095.png"));
         ImageView view = new ImageView(img);
         view.setFitWidth(16);
@@ -58,7 +62,7 @@ public class ChoisirTypeTicketController {
     }
     @FXML
     private void acheterTitre() {
-        String choix = choiceBox3.getValue(); // Récupère le choix sélectionné
+        String choix = choiceBox1.getValue(); // Récupère le choix sélectionné
 
         if (choix == null || personne == null) {
             System.out.println("Erreur : choix ou personne non défini.");
