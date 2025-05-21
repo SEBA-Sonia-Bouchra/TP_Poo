@@ -15,13 +15,17 @@ import javafx.stage.Stage;
 
 public class ChoisirTypeTicketController {
     @FXML 
-    private ChoiceBox<String> choiceBox3;
+    private ChoiceBox<String> choiceBox1;
+    @FXML 
+    private ChoiceBox<String> choiceBox2;
     @FXML
     private Button backButton;
     @FXML
     public void initialize() {
-      choiceBox3.getItems().addAll("Ticket", "Carte de navigation personnelle");
-      choiceBox3.setValue("Ticket");
+      choiceBox1.getItems().addAll("Ticket", "Carte de navigation personnelle");
+      choiceBox1.setValue("Ticket");
+      choiceBox2.getItems().addAll("Espece", "Carte DAHABIA", "BaridiMob");
+      choiceBox2.setValue("Espece");
       Image img = new Image(getClass().getResourceAsStream("/transport/ui/back-arrow-3095.png"));
       ImageView view = new ImageView(img);
       view.setFitWidth(16);
