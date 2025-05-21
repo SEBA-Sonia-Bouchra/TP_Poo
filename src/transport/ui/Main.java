@@ -10,12 +10,11 @@ import javafx.scene.layout.*;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Load the initial Home scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
         Parent root = loader.load();
         
         primaryStage.setTitle("Transport Application");
-        primaryStage.setScene(new Scene(root, 1280, 720)); // Set initial size
+        primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.setResizable(true); // Allow resizing
         primaryStage.show();
     }

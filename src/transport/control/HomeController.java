@@ -22,7 +22,7 @@ public class HomeController {
             
             // Get the current stage from the button
             Stage stage = (Stage) AjouterTitreTransportButton.getScene().getWindow();
-            stage.setScene(new Scene(destinationRoot));
+            stage.setScene(new Scene(destinationRoot, 800, 500));
         } catch (IOException e) {
             e.printStackTrace();
         }
