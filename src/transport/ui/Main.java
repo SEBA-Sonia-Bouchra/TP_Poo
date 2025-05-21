@@ -47,11 +47,12 @@ public class Main extends Application {
         // guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "La station est sale.");
         // guichet.ajouterReclamation(reclamateur, TypeReclamation.TECHNIQUE, bus, "Bus tambe en panne.");
         // guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Comportement inacceptable.");
-        DataStorage.saveState(guichet, saveFile);
+        // DataStorage.saveState(guichet, saveFile);
         // -----------------------------------------------
 
         // tessssssssssssst
         // FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficherReclamations.fxml"));
+        
         // Load the initial Home scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
         Parent root = loader.load();

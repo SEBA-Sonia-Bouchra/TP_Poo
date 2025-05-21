@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -17,8 +18,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import transport.core.DataStorage;
+import transport.core.Employe;
+import transport.core.Fonction;
+import transport.core.GuichetStation;
+import transport.core.Personne;
+import transport.core.Usager;
 
 public class AjouterTitreTransportController {
+    String saveFile = "State.ser";
+    GuichetStation guichet = DataStorage.loadState(saveFile);
+    private Fonction fonction;
+    private Personne personne;
+
     @FXML
     private ChoiceBox<String> choiceBox;
     @FXML // links the controller to fxml
@@ -45,6 +57,8 @@ public class AjouterTitreTransportController {
     private TextField matriculeField;
     @FXML
     private Button backButton;
+    @FXML
+    private CheckBox HandicapBox;
 
     @FXML
     public void initialize() {
@@ -68,6 +82,9 @@ public class AjouterTitreTransportController {
     try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/transport/ui/ChoisirTypeTicket.fxml"));
             Parent destinationRoot = loader.load();
+            // Get controller and pass the person
+            ChoisirTypeTicketController controller = loader.getController();
+            controller.setPersonne(personne);
             Stage stage = (Stage) chooseTicketTypeButton.getScene().getWindow();
             stage.setScene(new Scene(destinationRoot, 800, 500));
         } catch (IOException e) {
@@ -77,13 +94,22 @@ public class AjouterTitreTransportController {
 
     @FXML
     private void handleGoBack(ActionEvent event) { // the method is private because it's only used internally
-    try {
-        Parent root = FXMLLoader.load(getClass().getResource("/transport/ui/Home.fxml"));
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        stage.setScene(new Scene(root, 800, 500));
-    } catch (IOException e) {
-        e.printStackTrace();
+      try {
+          Parent root = FXMLLoader.load(getClass().getResource("/transport/ui/Home.fxml"));
+          Stage stage = (Stage) backButton.getScene().getWindow();
+          stage.setScene(new Scene(root, 800, 500));
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
     }
+    @FXML
+    private void handleFunctionChoice(){
+      String selectedValue = choiceBox2.getValue();
+      if (selectedValue.equals("Conducteur")){
+        fonction = Fonction.CONDUCTEUR;
+      }else{
+        fonction = Fonction.AGENT;
+      }
     }
 
     private void validateForm() {
@@ -124,13 +150,13 @@ public class AjouterTitreTransportController {
     }
     // validation de la date de naissance
     if (selectedDate == null) {
-    dateErrorLabel.setText("Veuillez sélectionner une date.");
-    dateErrorLabel.setVisible(true);
-    dateField.setStyle("-fx-border-color: red;");
-    valid = false;
+      dateErrorLabel.setText("Veuillez sélectionner une date.");
+      dateErrorLabel.setVisible(true);
+      dateField.setStyle("-fx-border-color: red;");
+      valid = false;
     } else {
-    dateErrorLabel.setVisible(false);
-    dateField.setStyle("");
+      dateErrorLabel.setVisible(false);
+      dateField.setStyle("");
     }
     // validation du matricule
     if (matricule.isEmpty() && choiceBox.getValue().equals("Employe")) {
@@ -143,7 +169,18 @@ public class AjouterTitreTransportController {
         matriculeField.setStyle(""); 
     }
     if (valid) {
+      boolean handicap = HandicapBox.isSelected();
+      boolean typeEmp = choiceBox.getValue().equals("Employe");
+      if(typeEmp){
+        handleFunctionChoice();
+        Employe employe = new Employe(name, firstName, selectedDate, handicap, matricule, fonction);
+        personne = employe;
         chooseTicketType();
+      }else{
+        Usager usager = new Usager(name, firstName, selectedDate, handicap);
+        personne = usager;
+        chooseTicketType();
+      }
     }
 }
 

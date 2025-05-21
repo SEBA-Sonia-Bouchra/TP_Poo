@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="transport.control.ChoisirTypeTicketController">
+<HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="transport.control.ChoisirTypeTicketController">
    <children>
       <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -57,7 +57,7 @@
                         <ChoiceBox fx:id="choiceBox3" prefWidth="150.0" />
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" style="-fx-background-color: orange; -fx-background-radius: 10px;" text="Valider" textFill="WHITE">
+                  <Button fx:id="ValidateButton" mnemonicParsing="false" onAction="#acheterTitre" style="-fx-background-color: orange; -fx-background-radius: 10px;" text="Valider" textFill="WHITE">
                      <font>
                         <Font name="Yu Gothic UI Regular" size="17.0" />
                      </font>

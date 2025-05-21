@@ -38,7 +38,7 @@ public abstract class Personne  implements Serializable{
     
     @Override
     public String toString() {
-        return prenom + " " + nom;
+        return (prenom + " " + nom + " " + dateNaissance + " " + handicap);
     }
   
     public void ajouterTitre(TitreTransport titre){

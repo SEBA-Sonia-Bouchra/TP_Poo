@@ -15,4 +15,8 @@ public class Employe extends Personne{
     public String getMatricule() { return matricule; }
     public Fonction getFonction() { return fonction; }
     
+    @Override
+    public String toString() {
+        return (prenom + " " + nom + " " + dateNaissance + " " + handicap +" " + matricule + " " + fonction);
+    }
 }

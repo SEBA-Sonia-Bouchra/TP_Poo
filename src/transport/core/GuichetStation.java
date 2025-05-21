@@ -3,6 +3,7 @@ package transport.core;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -11,11 +12,8 @@ public class GuichetStation implements Serializable{
     List<Personne> listPersonnes = new ArrayList<>(); 
     ServiceReclamation service = new ServiceReclamation();
 
-    public void ajouterUsager (Usager usager){
-        listPersonnes.add(usager);
-    }
-    public void ajouterEmploye (Employe employe){
-        listPersonnes.add(employe);
+    public void ajouterPersonne (Personne personne){
+        listPersonnes.add(personne);
     }
     public void acheterTitreTransport(Personne personne, TitreTransport titre){
         personne.ajouterTitre(titre);
@@ -26,7 +24,7 @@ public class GuichetStation implements Serializable{
         for (Personne p : listPersonnes) {
             titreTransports.addAll(p.getTitreTransport());
         }
-        titreTransports.sort((t1, t2) -> t2.getDateAchat().compareTo(t1.getDateAchat()));
+        Collections.reverse(titreTransports);
         return titreTransports;
     }
     public TitreTransport chercherTitreParId(int id) throws TitreNonTrouverException {
@@ -59,6 +57,8 @@ public class GuichetStation implements Serializable{
         return (service.afficherTousReclamations());
     }
     public void afficherPersonnes(){
-        System.out.println(listPersonnes.toString());
+        for (Personne p : listPersonnes) {
+            System.out.println(p.toString());
+        }
     }
 }

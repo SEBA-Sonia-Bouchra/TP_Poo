@@ -34,19 +34,19 @@ public class CartePersonnelle extends TitreTransport {
         type=TypeCarte.NOREDUCTION;
         if(age > 65) {
             type=TypeCarte.SENIOR;
-            super.prix=(super.prix)*(25.0/100);
+            super.prix=super.prix - (super.prix)*(25.0/100);
         }
         if(age < 25){
             type=TypeCarte.JUNIOR;
-            super.prix=(super.prix)*(30.0/100);
+            super.prix=super.prix - (super.prix)*(30.0/100);
         }
-        if(personne.getClass().toString()=="Employe"){
+        if(personne instanceof Employe){
             type=TypeCarte.PARTENAIRE;
-            super.prix=super.prix*(40.0/100);
+            super.prix=super.prix - super.prix*(40.0/100);
         }
         if(personne.getHandicap()==true){
             type=TypeCarte.SOLIDARITE;
-            super.prix=super.prix*(50.0/100);
+            super.prix=super.prix - super.prix*(50.0/100);
         }
     }
 }
