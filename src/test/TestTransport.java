@@ -3,69 +3,58 @@ package test;
 import java.time.*;
 
 import transport.core.CartePersonnelle;
-import transport.core.Employe;
-import transport.core.Fonction;
+import transport.core.GuichetStation;
+import transport.core.MoyenTransport;
 import transport.core.Personne;
 import transport.core.ReductionImpossibleException;
+import transport.core.Station;
+import transport.core.Suspendable;
 import transport.core.Ticket;
-import transport.core.TitreNonValideException;
 import transport.core.TitreTransport;
+import transport.core.TypeReclamation;
 import transport.core.Usager;
+import transport.core.DataStorage;
 
 public class TestTransport {
 
-  public static void main(String[] args) throws Exception{
-    
-   TitreTransport ticket, cartePersoUsager,cartePersoEmploye;
-   Personne usager, employe, usagerRExcept;
-        
-   System.out.println(" ----------------------- Tests sur les tickets----------------------");
-    
-   ticket = new Ticket();
-   // 1.Test de ticket invalide
-   try {   
-       System.out.println("Ticket créé le : " + ticket.getDateAchat ());
-       System.out.println("Numéro du ticket  :  " + ticket.getId () );       
-       System.out.println("Prix du ticket : " + ticket.getPrix() + " DA");
-       System.out.println("Test de validité le "+ LocalDate.of(2025,4,22)+ ": " + ticket.estValide(LocalDate.of(2025,4,22)) );
-       System.out.println("Test de validité le "+ LocalDate.of(2025,4,30)) ;
-       System.out.println(ticket.estValide(LocalDate.of(2025,4,30))) ;
-        
-    } catch (TitreNonValideException e) {System.out.println("Erreur: " + e.getMessage());}
- 
-   System.out.println(" \n\n\n----------------------- Tests sur les cartes personnelles----------------------");
+  public static void main(String[] args) {
+       String saveFile = "State.ser";
+       GuichetStation guichet = DataStorage.loadState(saveFile);
        
-   //2. Test des cartes personnelles
-      usager = new Usager("Ali", "BenMohamed", LocalDate.of(2010, 5, 12), false);
-      employe = new Employe("Ahmed", "Tahar", LocalDate.of(1980, 3, 25), false, "A123", Fonction.AGENT);
-      usagerRExcept = new Usager("Amina", "Hamidi", LocalDate.of(1980, 5, 12), false);
-   
-       //2.1. carte usager reduction possible: test de type et test de validité
-try{    
-      cartePersoUsager = new CartePersonnelle(usager);
-      System.out.println("Carte personnelle créée le " + cartePersoUsager.getDateAchat());
-      System.out.println("Numéro de la carté: "+ cartePersoUsager.getId()); 
-      System.out.println("Proprietaire de la carte : "+ usager.getNom()+ " " + usager.getPrenom()); 
-      System.out.println("Type de la carte " + ((CartePersonnelle)cartePersoUsager).getType() );
-      System.out.println("Prix de la carte : " + cartePersoUsager.getPrix() + " DA");
-      System.out.println("Test de validité le "+ LocalDate.of(2025,5,22) + " : " + cartePersoUsager.estValide((LocalDate.of(2025,5,22))));
-      System.out.println("Test de validité le "+ LocalDate.of(2026,5,22)) ;
-      cartePersoUsager.estValide((LocalDate.of(2026,5,22)));  
-      
-        } 
-  catch (TitreNonValideException e) {
-       System.out.println("Erreur: " + e.getMessage()); }
-  catch (ReductionImpossibleException e) {
-       System.out.println("Erreur: " + e.getMessage()); }
-        
- 
-         //2.2. Ceation de carte personnelle impossible (la personne n'a droit à aucune réduction)
-try{    
-       cartePersoUsager = new CartePersonnelle(usagerRExcept);      
-   } 
-  
-  catch (ReductionImpossibleException e) {
-       System.out.println("\nCréation de carte personnelle refusée pour "+ usagerRExcept.getNom()+ " " + usagerRExcept.getPrenom()+ e.getMessage());
-       }
+        // 2. Créer un usager et un titre de transport
+        Personne usager = new Usager("Lee", "Sonia", LocalDate.of(2006, 3, 1), true);
+        TitreTransport ticket = new Ticket();
+
+        guichet.acheterTitreTransport(usager, ticket);
+
+        try {
+            TitreTransport carte = new CartePersonnelle(usager);
+            guichet.acheterTitreTransport(usager, carte);
+        } catch (ReductionImpossibleException e) {
+            System.out.println("Erreur lors de la création de la carte personnelle : " + e.getMessage());
+        }
+
+        // 3. Valider un titre
+        guichet.verifierTitre(ticket.getId());
+        System.out.println(guichet.afficherTitreTransport().toString());
+
+        // 4. Ajouter des réclamations
+        Suspendable station = new Station("El Harrach"); 
+        Suspendable bus = new MoyenTransport("AOF8"); 
+        Personne reclamateur = new Usager("Ben", "Ali", LocalDate.of(1990, 5, 10), false);
+
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Le bus est en retard.");
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "La station est sale.");
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.TECHNIQUE, bus, "Bus tambe en panne.");
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Comportement inacceptable.");
+
+        // 5. Afficher les réclamations
+        guichet.afficherReclamations();
+
+        guichet.afficherPersonnes();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            DataStorage.saveState(guichet, saveFile);
+        }));
     }
 }

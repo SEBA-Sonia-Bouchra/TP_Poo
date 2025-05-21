@@ -1,28 +1,25 @@
 package transport.core;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
-public class GuichetStation {
-    List<Personne> listPersonnes = new ArrayList<>();
+public class GuichetStation implements Serializable{
+    private static final long serialVersionUID = 1L;
+    List<Personne> listPersonnes = new ArrayList<>(); 
+    ServiceReclamation service = new ServiceReclamation();
 
-    public void ajouterUsager (String nom, String prenom, LocalDate dateNaissance, boolean handicap){
-        Usager usager = new Usager(nom, prenom, dateNaissance, handicap);
+    public void ajouterUsager (Usager usager){
         listPersonnes.add(usager);
     }
-    public void ajouterEmploye (String nom, String prenom, LocalDate dateNaissance, boolean handicap, String matricule, Fonction fonction){
-        Employe employe = new Employe(nom, prenom, dateNaissance, handicap, matricule, fonction);
+    public void ajouterEmploye (Employe employe){
         listPersonnes.add(employe);
     }
     public void acheterTitreTransport(Personne personne, TitreTransport titre){
-        if (titre.getClass().toString() == "Ticket" || titre.getClass().toString() == "CartePersonnelle"){
-            personne.ajouterTitre(titre);
-            listPersonnes.add(personne);
-            System.out.println("Titre ajouter avec succes\n"+ personne.toString() + "\nPrix: " + titre.prix + "\nValable le: " + titre.dateAchat);
-        }else{
-            System.out.println("Ce titre de transport n'existe pas");
-        }
+        personne.ajouterTitre(titre);
+        System.out.println("Titre ajouter avec succes\n"+ personne.toString() + "\nPrix: " + titre.prix + "\nValable le: " + titre.dateAchat);
     }
     public List<TitreTransport> afficherTitreTransport() {
         List<TitreTransport> titreTransports = new ArrayList<>();
@@ -53,5 +50,15 @@ public class GuichetStation {
             }catch(TitreNonValideException err){
                 System.out.println("error: " + err.getMessage());
             }
+    }
+    public void ajouterReclamation(Personne personne, TypeReclamation type, Suspendable cible, String description){
+        Reclamation reclamation = new Reclamation(personne, type, cible, description, LocalDate.now());
+        service.soumettre(reclamation);
+    }
+    public TreeSet<Reclamation> afficherReclamations(){
+        return (service.afficherTousReclamations());
+    }
+    public void afficherPersonnes(){
+        System.out.println(listPersonnes.toString());
     }
 }

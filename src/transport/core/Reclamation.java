@@ -1,8 +1,10 @@
 package transport.core;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Reclamation implements Comparable<Reclamation>{
+public class Reclamation implements Comparable<Reclamation>, Serializable {
+    private static final long serialVersionUID = 1L;
     private static int compteur = 1; 
     private int numero;
     private LocalDate date;
@@ -39,8 +41,10 @@ public class Reclamation implements Comparable<Reclamation>{
         }else{
             return 1;
         }
-    }
+    } 
 
-
-      
-    }
+    // ************************************************
+    public static int getCurrentIdInc() {return compteur;}
+    public static void setIdInc(int nextId) {compteur = nextId;}
+    
+}

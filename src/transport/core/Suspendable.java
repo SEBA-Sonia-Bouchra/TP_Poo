@@ -1,6 +1,8 @@
 package transport.core;
 
-public interface Suspendable {
+import java.io.Serializable;
+
+public interface Suspendable extends Serializable{
     
     void suspendre();
     void reactiver();

@@ -1,12 +1,14 @@
 package transport.core;
 
 import java.util.*;
+import java.io.*;
 
-public class ServiceReclamation {
+public class ServiceReclamation implements Serializable{
+    private static final long serialVersionUID = 1L;
     private  final int SEUIL = 3;
     private  Map<TypeReclamation,TreeSet<Reclamation>> reclamationsParType = new TreeMap<>();
     private  Map<Personne, TreeSet<Reclamation>> reclamationsParPersonne = new HashMap<>();
-    // private  Map<Suspendable, TreeSet<Reclamation>> reclamationsParSuspendable = new HashMap<>();
+    private  Map<Suspendable, TreeSet<Reclamation>> reclamationsParSuspendable = new HashMap<>();
     private TreeSet<Reclamation> TreeReclamation = new TreeSet<>();
 
     public void soumettre(Reclamation R){
@@ -22,6 +24,8 @@ public class ServiceReclamation {
         }   
         if (cibleNB >= SEUIL){
             R.getCible().suspendre();
+            reclamationsParSuspendable.put(R.getCible(), TreeReclamation);
+            System.out.println("Ce service est suspendu");
         }
     }
 
@@ -59,5 +63,11 @@ public class ServiceReclamation {
 
     //     }
     // }
-    
+
+    // ************************************************************
+
+    // added this method to display all recalmations of all types
+    public TreeSet<Reclamation> afficherTousReclamations() {
+        return TreeReclamation;
+    }  
 }

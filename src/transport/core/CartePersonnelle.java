@@ -3,11 +3,12 @@ package transport.core;
 import java.time.*;
 
 public class CartePersonnelle extends TitreTransport {
+    private static final long serialVersionUID = 1L;
     private Personne personne;
     private TypeCarte type;
 
     public boolean estValide(LocalDate date) throws TitreNonValideException{
-        boolean valide=(Period.between(super.dateAchat.toLocalDate(), date).getYears()<1);
+        boolean valide=(Period.between(super.dateAchat, date).getYears()<1);
         if(valide==false){
             throw new TitreNonValideException();
         }

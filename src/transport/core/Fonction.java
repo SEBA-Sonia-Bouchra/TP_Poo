@@ -1,6 +1,6 @@
 package transport.core;
- 
-public enum Fonction
+
+public enum Fonction 
 {
     CONDUCTEUR, AGENT
 }

@@ -2,6 +2,7 @@ package transport.core;
 import java.time.*;
 
 public class Ticket extends TitreTransport{
+    private static final long serialVersionUID = 1L;
 
     public Ticket(){
         super();
@@ -9,7 +10,7 @@ public class Ticket extends TitreTransport{
     }
 
     public boolean estValide(LocalDate date) throws TitreNonValideException{
-        boolean valide=date.isEqual(super.dateAchat.toLocalDate());
+        boolean valide=date.isEqual(super.dateAchat);
         if(valide==false){
             throw new TitreNonValideException();
         }

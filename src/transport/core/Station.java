@@ -1,6 +1,7 @@
 package transport.core;
 
 public class Station implements Suspendable{
+    private static final long serialVersionUID = 1L;
     private String nom;
     private boolean suspendu;
     public Station(String nom) {
@@ -11,7 +12,7 @@ public class Station implements Suspendable{
     public String getNom() { return nom;  }
 
     @Override
-    public String toString() { return "Station de " + nom ;}
+    public String toString() { return nom ;}
    
     public void suspendre() {suspendu=true;}
     public void reactiver() {suspendu=false;}
