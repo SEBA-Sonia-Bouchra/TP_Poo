@@ -3,7 +3,6 @@ package test;
 import java.time.*;
 
 import transport.core.CartePersonnelle;
-import transport.core.Fonction;
 import transport.core.GuichetStation;
 import transport.core.MoyenTransport;
 import transport.core.Personne;
@@ -36,23 +35,23 @@ public class TestTransport {
         }
 
         // 3. Valider un titre
-     //    guichet.verifierTitre(ticket.getId());
+        guichet.verifierTitre(ticket.getId());
         System.out.println(guichet.afficherTitreTransport().toString());
 
         // 4. Ajouter des réclamations
-      //   Suspendable station = new Station("El Harrach"); 
-      //   Suspendable bus = new MoyenTransport("AOF8"); 
-      //   Personne reclamateur = new Usager("Ben", "Ali", LocalDate.of(1990, 5, 10), false);
+        Suspendable station = new Station("El Harrach"); 
+        Suspendable bus = new MoyenTransport("AOF8"); 
+        Personne reclamateur = new Usager("Ben", "Ali", LocalDate.of(1990, 5, 10), false);
 
-      //   guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Le bus est en retard.");
-      //   guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "La station est sale.");
-      //   guichet.ajouterReclamation(reclamateur, TypeReclamation.TECHNIQUE, bus, "Bus tambe en panne.");
-      //   guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Comportement inacceptable.");
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Le bus est en retard.");
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "La station est sale.");
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.TECHNIQUE, bus, "Bus tambe en panne.");
+        guichet.ajouterReclamation(reclamateur, TypeReclamation.SERVICE, station, "Comportement inacceptable.");
 
         // 5. Afficher les réclamations
-        // guichet.afficherReclamations();
+        guichet.afficherReclamations();
 
-        // guichet.afficherPersonnes();
+        guichet.afficherPersonnes();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             DataStorage.saveState(guichet, saveFile);

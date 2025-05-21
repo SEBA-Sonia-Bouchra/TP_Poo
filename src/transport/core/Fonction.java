@@ -1,8 +1,6 @@
 package transport.core;
 
-import java.io.Serializable;
-
-public enum Fonction implements Serializable
+public enum Fonction 
 {
     CONDUCTEUR, AGENT
 }

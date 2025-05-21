@@ -42,4 +42,9 @@ public class Reclamation implements Comparable<Reclamation>, Serializable {
             return 1;
         }
     } 
+
+    // ************************************************
+    public static int getCurrentIdInc() {return compteur;}
+    public static void setIdInc(int nextId) {compteur = nextId;}
+    
 }

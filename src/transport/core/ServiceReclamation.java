@@ -67,23 +67,7 @@ public class ServiceReclamation implements Serializable{
     // ************************************************************
 
     // added this method to display all recalmations of all types
-    public void afficherTousReclamations() {
-        for (Reclamation reclamation : TreeReclamation) {
-            System.out.println(reclamation.toString());
-        }
-    }
-
-    // Save to file
-    public void sauvegarder(String Fichier) throws IOException {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(Fichier))) {
-            out.writeObject(this);
-        }
-    }
-
-    // Load from file
-    public static ServiceReclamation charger(String Fichier) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(Fichier))) {
-            return (ServiceReclamation) in.readObject();
-        }
-    }   
+    public TreeSet<Reclamation> afficherTousReclamations() {
+        return TreeReclamation;
+    }  
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class GuichetStation implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -54,8 +55,8 @@ public class GuichetStation implements Serializable{
         Reclamation reclamation = new Reclamation(personne, type, cible, description, LocalDate.now());
         service.soumettre(reclamation);
     }
-    public void afficherReclamations(){
-        service.afficherReclamations();
+    public TreeSet<Reclamation> afficherReclamations(){
+        return (service.afficherTousReclamations());
     }
     public void afficherPersonnes(){
         System.out.println(listPersonnes.toString());

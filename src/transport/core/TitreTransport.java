@@ -22,6 +22,7 @@ public abstract class TitreTransport implements Serializable{
     public double getPrix(){ return prix;}
     public abstract boolean estValide(LocalDate date) throws TitreNonValideException;
 
+    // ************************************************
     public static int getCurrentIdInc() {return idInc;}
     public static void setIdInc(int nextId) {idInc = nextId;}
     

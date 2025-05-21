@@ -59,7 +59,6 @@ public class AfficherTitreTransportController {
             Scene homeScene = new Scene(homeView, 800, 500); 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
-            // stage.setTitle("Home");
             stage.setResizable(true); 
             stage.show();
 
