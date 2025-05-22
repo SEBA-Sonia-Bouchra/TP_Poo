@@ -1,7 +1,5 @@
 package transport.core;
 
-import java.io.Serializable;
-
-public enum TypeCarte implements Serializable {
+public enum TypeCarte {
     JUNIOR, SENIOR , SOLIDARITE, PARTENAIRE, NOREDUCTION
 }

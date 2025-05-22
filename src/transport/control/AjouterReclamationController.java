@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -17,8 +18,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import transport.core.DataStorage;
+import transport.core.Employe;
+import transport.core.Fonction;
+import transport.core.GuichetStation;
+import transport.core.Personne;
+import transport.core.Usager;
 
 public class AjouterReclamationController {
+  String saveFile = "State.ser";
+    GuichetStation guichet = DataStorage.loadState(saveFile);
+    private Fonction fonction;
+    private Personne personne;
     @FXML
     private ChoiceBox<String> choiceBox1;
     @FXML 
@@ -45,6 +56,8 @@ public class AjouterReclamationController {
     private TextField matriculeField;
     @FXML
     private Button backButton;
+    @FXML
+    private CheckBox HandicapBox;
 
     @FXML
     public void initialize() {
@@ -68,8 +81,11 @@ public class AjouterReclamationController {
     try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/transport/ui/RemplirInformationsReclamation.fxml"));
             Parent destinationRoot = loader.load();
+            // Get controller and pass the person
+            RemplirInformationsReclamationController controller = loader.getController();
+            controller.setPersonne(personne);
             Stage stage = (Stage) ajouterReclamationButton.getScene().getWindow();
-            stage.setScene(new Scene(destinationRoot, 800, 500));
+            stage.setScene(new Scene(destinationRoot, 700, 500));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,6 +100,16 @@ public class AjouterReclamationController {
     } catch (IOException e) {
         e.printStackTrace();
     }
+    }
+
+    @FXML
+    private void handleFunctionChoice(){
+      String selectedValue = choiceBox2.getValue();
+      if (selectedValue.equals("Conducteur")){
+        fonction = Fonction.CONDUCTEUR;
+      }else{
+        fonction = Fonction.AGENT;
+      }
     }
 
     private void validateForm() {
@@ -143,7 +169,18 @@ public class AjouterReclamationController {
         matriculeField.setStyle(""); 
     }
     if (valid) {
+      boolean handicap = HandicapBox.isSelected();
+      boolean typeEmp = choiceBox1.getValue().equals("Employe");
+      if(typeEmp){
+        handleFunctionChoice();
+        Employe employe = new Employe(name, firstName, selectedDate, handicap, matricule, fonction);
+        personne = employe;
         ajouterReclamation();
+      }else{
+        Usager usager = new Usager(name, firstName, selectedDate, handicap);
+        personne = usager;
+        ajouterReclamation();
+      }
     }
 }
 

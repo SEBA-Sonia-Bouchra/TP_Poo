@@ -18,7 +18,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import transport.core.DataStorage;
 import transport.core.GuichetStation;
+import transport.core.MoyenTransport;
 import transport.core.Reclamation;
+import transport.core.Station;
 
 public class AfficherReclamationsController {
     String saveFile = "State.ser";
@@ -43,29 +45,55 @@ public class AfficherReclamationsController {
             Label dateLabel = new Label(reclamation.getDate().toString());
             dateLabel.setFont(Font.font("Verdana", 16));
             dateLabel.setPrefWidth(120);
-            Label entiteLabel = new Label(String.valueOf(reclamation.getCible().getClass().getSimpleName()));
-            entiteLabel.setFont(Font.font("Verdana", 16));
-            entiteLabel.setPrefWidth(150);
+            Label entiteLabel;
+            if (reclamation.getCible() != null) {
+                String nomAffiche;
+                String typeCible = reclamation.getCible().getClass().getSimpleName();
+
+                if (reclamation.getCible() instanceof Station) {
+                    Station station = (Station) reclamation.getCible();
+                    nomAffiche = station.getNom();
+                } else if (reclamation.getCible() instanceof MoyenTransport) {
+                    MoyenTransport moyen = (MoyenTransport) reclamation.getCible();
+                    nomAffiche = moyen.getIdentifiant();
+                } else {
+                    nomAffiche = typeCible;
+                }
+
+                entiteLabel = new Label(nomAffiche);
+                entiteLabel.setFont(Font.font("Verdana", 16));
+                entiteLabel.setPrefWidth(150); // élargi pour afficher le texte complet
+            } else {
+                entiteLabel = new Label("Non spécifiée");
+                entiteLabel.setFont(Font.font("Verdana", 16));
+                entiteLabel.setPrefWidth(150);
+                System.out.println("Cible null pour une réclamation : " + reclamation);
+            }
+
             Label typeLabel = new Label(String.valueOf(reclamation.getType())); 
             typeLabel.setFont(Font.font("Verdana", 16));
             typeLabel.setPrefWidth(130);
-            Button viewDescButton = new Button("Voir Description");
-            viewDescButton.setFont(Font.font("Verdana", 16));
-            viewDescButton.setOnAction(e -> {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Voir Description");
-                alert.setHeaderText("Description pour la Reclamation #" + reclamation.getNumero());
-                alert.setContentText(reclamation.getDescription());
-                alert.setResizable(false);
-                alert.getDialogPane().setPrefSize(400, 300); 
-                 alert.getDialogPane().setStyle(
-                    "-fx-font-family: 'Verdana';" +
-                    "-fx-font-size: 14px;" 
-                );
-                alert.showAndWait();
-            });
+            if (reclamation.getDescription() != null && !reclamation.getDescription().trim().isEmpty()) {
+                Button viewDescButton = new Button("Voir Description");
+                viewDescButton.setFont(Font.font("Verdana", 16));
+                viewDescButton.setOnAction(e -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Voir Description");
+                    alert.setHeaderText("Description pour la Reclamation #" + reclamation.getNumero());
+                    alert.setContentText(reclamation.getDescription());
+                    alert.setResizable(false);
+                    alert.getDialogPane().setPrefSize(400, 300); 
+                    alert.getDialogPane().setStyle(
+                        "-fx-font-family: 'Verdana';" +
+                        "-fx-font-size: 14px;" 
+                    );
+                    alert.showAndWait();
+                });
 
-            row.getChildren().addAll(idLabel, dateLabel, entiteLabel, typeLabel, viewDescButton);
+                row.getChildren().addAll(idLabel, dateLabel, entiteLabel, typeLabel, viewDescButton);
+            } else {
+                row.getChildren().addAll(idLabel, dateLabel, entiteLabel, typeLabel);
+            }
             ListeReclamations.getChildren().add(row);
         }
     }

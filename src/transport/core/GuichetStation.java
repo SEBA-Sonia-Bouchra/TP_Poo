@@ -12,6 +12,8 @@ public class GuichetStation implements Serializable{
     private static GuichetStation instance;
     List<Personne> listPersonnes = new ArrayList<>(); 
     ServiceReclamation service = new ServiceReclamation();
+    private List<Station> stations = new ArrayList<>();
+    private List<MoyenTransport> moyensTransport = new ArrayList<>();
 
     public void ajouterPersonne (Personne personne){
         listPersonnes.add(personne);
@@ -76,4 +78,25 @@ public class GuichetStation implements Serializable{
             System.out.println(p.toString());
         }
     }
+
+    public List<Station> getStations() {
+        return stations;
+    }
+
+    public List<MoyenTransport> getMoyensTransport() {
+        return moyensTransport;
+    }
+
+    public void ajouterStation(Station s) {
+        if (!stations.contains(s)) {
+            stations.add(s);
+        }
+    }
+
+    public void ajouterMoyenTransport(MoyenTransport m) {
+        if (!moyensTransport.contains(m)) {
+            moyensTransport.add(m);
+        }
+    }
+
 }
